@@ -2,7 +2,9 @@ package repository
 
 import (
 	"database/sql"
-	"@@.ImportPath@@/domain/model"
+	"sprinter/domain/model"
+
+	//"@@.ImportPath@@/domain/model"
 )
 
 type (

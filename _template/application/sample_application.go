@@ -1,8 +1,8 @@
 package application
 
 import (
-	"@@.ImportPath@@/domain/model"
-	"@@.ImportPath/domain/repository"
+	//"@@.ImportPath@@/domain/model"
+	//"@@.ImportPath/domain/repository"
 )
 
 type (
