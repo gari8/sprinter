@@ -1,8 +1,8 @@
 package application
 
 import (
-	"sprinter/domain/model"
-	"sprinter/domain/repository"
+	"@@.ImportPath@@/domain/model"
+	"@@.ImportPath/domain/repository"
 )
 
 type (

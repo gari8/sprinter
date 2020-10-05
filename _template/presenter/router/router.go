@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"sprinter/interactor"
-	mid "sprinter/presenter/middleware"
+	"@@.ImportPath@@/interactor"
+	mid "@@.ImportPath@@/presenter/middleware"
 )
 
 type Server struct {

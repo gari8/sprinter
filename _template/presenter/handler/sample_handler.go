@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"sprinter/application"
-	"sprinter/domain/model"
+	"@@.ImportPath@@/application"
+	"@@.ImportPath@@/domain/model"
 )
 
 type(

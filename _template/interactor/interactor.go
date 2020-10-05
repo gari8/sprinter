@@ -2,9 +2,9 @@ package interactor
 
 import (
 	"database/sql"
-	"sprinter/application"
-	"sprinter/domain/repository"
-	"sprinter/presenter/handler"
+	"@@.ImportPath@@/application"
+	"@@.ImportPath@@/domain/repository"
+	"@@.ImportPath@@/presenter/handler"
 )
 
 type (
