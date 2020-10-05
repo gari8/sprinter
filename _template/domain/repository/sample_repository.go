@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"sprinter/domain/model"
 
-	//"@@.ImportPath@@/domain/model"
+
 )
 
 type (

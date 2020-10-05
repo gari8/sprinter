@@ -2,9 +2,7 @@ package interactor
 
 import (
 	"database/sql"
-	//"@@.ImportPath@@/application"
-	//"@@.ImportPath@@/domain/repository"
-	//"@@.ImportPath@@/presenter/handler"
+
 )
 
 type (
