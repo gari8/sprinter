@@ -39,6 +39,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/_template" />
+      <recent name="$PROJECT_DIR$/infrastructure/postgres/init" />
       <recent name="$PROJECT_DIR$/infrastructure/db/conf" />
     </key>
   </component>

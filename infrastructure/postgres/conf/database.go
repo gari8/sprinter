@@ -1,16 +1,16 @@
 package conf
 
 import (
-	_ "github.com/lib/pq"
 	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 )
 
 var (
 	DRIVER = "postgres"
-	HOSTNAME = "db"
+	HOSTNAME = "postgres"
 	USER = "postgres"
-	DBNAME = "devdb"
+	DBNAME = "postgres"
 	PASSWORD = "postgres"
 )
 

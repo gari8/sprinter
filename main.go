@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/HAGARIHAYATO/sprinter/infrastructure/db/conf"
-	"github.com/HAGARIHAYATO/sprinter/interactor"
-	"github.com/HAGARIHAYATO/sprinter/presenter/middleware"
-	"github.com/HAGARIHAYATO/sprinter/presenter/router"
 	"net/http"
+	"sprinter/infrastructure/postgres/conf"
+	"sprinter/interactor"
+	"sprinter/presenter/middleware"
+	"sprinter/presenter/router"
 )
 
 func main() {
@@ -26,12 +26,14 @@ func main() {
   *  ####    ##       ##  ##    ####    ##  ##     ##     ######   ##  ##       *
     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     `)
+
 	i := interactor.NewInteractor(conn)
-	repository := i.NewRepository()
-	application := i.NewApplication(repository)
-	handler := i.NewHandler(application)
-	middleware := middleware.NewMiddleware()
-	server := router.NewRouter()
-	server.Router(handler, middleware)
-	http.ListenAndServe(":8080", server.Route)
+	r := i.NewRepository()
+	a := i.NewApplication(r)
+	h := i.NewHandler(a)
+	m := middleware.NewMiddleware()
+	s := router.NewRouter()
+	s.Router(h, m)
+
+	_ = http.ListenAndServe(":8080", s.Route)
 }

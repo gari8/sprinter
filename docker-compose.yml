@@ -1,25 +1,25 @@
 version: "3.5"
 services:
-  server:
-    container_name: server
-    build: .
+  app:
+    container_name: app
+    build: ""
     tty: true
     restart: always
     volumes:
-      - .:/doc-server
+      - .:/app
     ports:
       - 8080:8080
-    command: sh ./alias/build.sh
-  db:
+    command: sh ./build.sh
+  postgres:
     image: postgres:10-alpine
-    container_name: db
+    container_name: postgres
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - PGPASSWORD=postgres
-      - POSTGRES_DB=devdb
+      - POSTGRES_DB=postgres
       - DATABASE_HOST=localhost
     volumes:
-      - $PWD/db/init:/docker-entrypoint-initdb.d
+      - $PWD/infrastructure/postgres/init:/docker-entrypoint-initdb.d
