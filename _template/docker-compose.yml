@@ -2,7 +2,7 @@ version: "3.5"
 services:
   app:
     container_name: app
-    build: ""
+    build: .
     tty: true
     restart: always
     volumes:
