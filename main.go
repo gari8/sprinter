@@ -115,9 +115,9 @@ func (s *Sprinter) importPath(cwd string) string {
 func (s *Sprinter) createAll(sym *Symbol) error {
 
 	var buf bytes.Buffer
-	//if err := tmpl.Execute(&buf, sym); err != nil {
-	//	return err
-	//}
+	if err := tmpl.Execute(&buf, sym); err != nil {
+		return err
+	}
 
 	ar := txtar.Parse(buf.Bytes())
 	for _, f := range ar.Files {
