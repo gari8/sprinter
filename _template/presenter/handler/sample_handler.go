@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-
+	"@@.ImportPath@@/application"
+	"@@.ImportPath@@/domain/model"
 )
 
 type(

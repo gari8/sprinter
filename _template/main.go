@@ -3,7 +3,10 @@ package main
 import (
 	"fmt"
 	"net/http"
-
+	"@@.ImportPath@@/infrastructure/postgres/conf"
+	"@@.ImportPath@@/interactor"
+	"@@.ImportPath@@/presenter/middleware"
+	"@@.ImportPath@@/presenter/router"
 )
 
 func main() {

@@ -4,7 +4,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/stretchr/testify/assert"
 	"reflect"
-
+	"@@.ImportPath@@/presenter/router"
 	"testing"
 )
 
