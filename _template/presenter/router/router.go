@@ -4,7 +4,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"@@.ImportPath@@/interactor"
-	mid "@@.Important@@/presenter/middleware"
+	mid "@@.ImportPath@@/presenter/middleware"
 )
 
 type Server struct {
