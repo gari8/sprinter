@@ -21,6 +21,8 @@ ex... sprinter -path=go-app
 
       cd go-app
       
+      tree .
+      
       .
       ├── Dockerfile
       ├── README.md
