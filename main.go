@@ -23,7 +23,6 @@ var archive txtar.Archive
 
 type (
 	Sprinter struct {
-		OverWrite bool
 		ImportPath string
 		ExeName string
 		Dir string
@@ -38,7 +37,6 @@ type (
 
 func main() {
 	var sprinter Sprinter
-	flag.BoolVar(&sprinter.OverWrite, "overwrite", false, "overwrite everything")
 	flag.StringVar(&sprinter.ImportPath, "path", "", "import path")
 	flag.Parse()
 	sprinter.ExeName = os.Args[0]
