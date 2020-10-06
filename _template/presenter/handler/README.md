@@ -1,12 +1,12 @@
-### Application layer
+### Presenter layer
 
 ### OverView
 
-- this layer is like UseCase . This layer receives information from the repository layer.
+- This layer receives information from the application layer.
 
 ### How to use
 
-#### Create Handler Function
+#### Create Presenter Handler
 
 - At first: Create a function that belongs to a structure
 ```
