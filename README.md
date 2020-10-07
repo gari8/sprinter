@@ -60,5 +60,5 @@ docker-compose build
 
 docker-compose up
 
-opne http://localhost:8080/api/v1
+open http://localhost:8080/api/v1
 ```
