@@ -60,9 +60,6 @@ func (s *Sprinter) Run() error {
 		} else {
 			return errors.New("package can't be made here")
 		}
-	} else {
-		s.Dir = s.Args[0]
-		sym.Pkg = path.Base(s.Args[0])
 	}
 
 	cwd, err := os.Getwd()
