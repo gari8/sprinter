@@ -53,13 +53,11 @@ func (s *Sprinter) Run() error {
 		GoVer:   runtime.Version()[2:],
 	}
 
-	if len(s.Args) < 1 {
-		if s.ImportPath != "" {
-			s.Dir = s.ImportPath
-			sym.Pkg = path.Base(s.ImportPath)
-		} else {
-			return errors.New("package can't be made here")
-		}
+	if s.ImportPath != "" {
+		s.Dir = s.ImportPath
+		sym.Pkg = path.Base(s.ImportPath)
+	} else {
+		return errors.New("package name is not found")
 	}
 
 	cwd, err := os.Getwd()
