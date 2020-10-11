@@ -25,3 +25,5 @@ services:
       - DATABASE_HOST=localhost
     volumes:
       - $PWD/infrastructure/postgres/init:/docker-entrypoint-initdb.d
+      #      this volume allows for data persistence
+      #      - $PWD/infrastructure/postgres/data:/var/lib/postgresql/data
