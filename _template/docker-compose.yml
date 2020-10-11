@@ -1,18 +1,20 @@
 version: "3.5"
 services:
-  app:
-    container_name: app
+  @@.ImportPath@@:
+    container_name: @@.ImportPath@@
     build: .
     tty: true
     restart: always
     volumes:
       - .:/app
+    depends_on:
+      - @@.ImportPath@@db
     ports:
       - 8080:8080
     command: sh ./build.sh
-  postgres:
+  @@.ImportPath@@db:
     image: postgres:10-alpine
-    container_name: postgres
+    container_name: @@.ImportPath@@db
     ports:
       - "5432:5432"
     environment:
