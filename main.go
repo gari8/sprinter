@@ -8,6 +8,7 @@ import (
 	"go/build"
 	"go/format"
 	"io"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -18,8 +19,6 @@ import (
 )
 
 //go:generate go run tools/txtar/main.go -strip "_template/" _template template.go
-
-var archive txtar.Archive
 
 type (
 	Sprinter struct {
@@ -43,8 +42,7 @@ func main() {
 	sprinter.Args = flag.Args()
 
 	if err := sprinter.Run(); err != nil {
-		fmt.Fprintln(os.Stderr, "Error:", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 }
 
@@ -68,8 +66,7 @@ func (s *Sprinter) Run() error {
 	sym.ImportPath = s.importPath(cwd)
 
 	if sym.ImportPath == "" {
-		const format = "%s must be executed in GOPATH or -path option must be specified"
-		return fmt.Errorf(format, s.ExeName)
+		return fmt.Errorf("%s: package name is not found", s.ExeName)
 	}
 
 	if err := s.createAll(sym); err != nil {
@@ -127,14 +124,14 @@ func (s *Sprinter) createFile(f txtar.File) (rerr error) {
 		return nil
 	}
 
-	path := filepath.Join(s.Dir, filepath.FromSlash(f.Name))
+	fp := filepath.Join(s.Dir, filepath.FromSlash(f.Name))
 
 
-	if err := os.MkdirAll(filepath.Dir(path), 0777); err != nil {
+	if err := os.MkdirAll(filepath.Dir(fp), 0777); err != nil {
 		return err
 	}
 
-	w, err := os.Create(path)
+	w, err := os.Create(fp)
 	if err != nil {
 		return err
 	}
@@ -146,7 +143,7 @@ func (s *Sprinter) createFile(f txtar.File) (rerr error) {
 
 	// format a go file
 	data := f.Data
-	if filepath.Ext(path) == ".go" {
+	if filepath.Ext(fp) == ".go" {
 		data, err = format.Source(data)
 		if err != nil {
 			return err
@@ -158,7 +155,7 @@ func (s *Sprinter) createFile(f txtar.File) (rerr error) {
 		return err
 	}
 
-	fmt.Println("create", path)
+	fmt.Println("create", fp)
 
 	return nil
 }
