@@ -9,7 +9,12 @@ import (
 	"strings"
 )
 
-func (s *sampleHandler) parseTemplate(dir string, fileName string) (*template.Template, error) {
+type response struct {
+	Status int
+	Result interface{}
+}
+
+func parseTemplate(dir string, fileName string) (*template.Template, error) {
 	tmpl := template.New("")
 
 	var layout string

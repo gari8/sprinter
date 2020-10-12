@@ -15,10 +15,6 @@ type(
 		SampleIndex(w http.ResponseWriter, r *http.Request)
 		SampleHTML(w http.ResponseWriter, r *http.Request)
 	}
-	response struct {
-		Status int
-		Result interface{}
-	}
 )
 
 func NewSampleHandler(as application.SampleApplication) SampleHandler {
@@ -46,7 +42,7 @@ func (s *sampleHandler) SampleIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *sampleHandler) SampleHTML(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := s.parseTemplate("sample", "index")
+	tmpl, err := parseTemplate("sample", "index")
 
 	if err != nil {
 		log.Fatal("err :", err)
