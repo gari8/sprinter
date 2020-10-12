@@ -1,11 +1,10 @@
 package handler
 
 import (
+	"@@.ImportPath@@/application"
 	"encoding/json"
 	"log"
 	"net/http"
-	"@@.ImportPath@@/application"
-	"@@.ImportPath@@/domain/model"
 )
 
 type(
@@ -18,7 +17,7 @@ type(
 	}
 	response struct {
 		Status int
-		Samples []*model.Sample
+		Result interface{}
 	}
 )
 
@@ -35,7 +34,7 @@ func (s *sampleHandler) SampleIndex(w http.ResponseWriter, r *http.Request) {
 
 	resp := &response{
 		Status: http.StatusOK,
-		Samples: samples,
+		Result: samples,
 	}
 
 	res, err := json.Marshal(resp)
