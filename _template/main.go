@@ -27,7 +27,9 @@ func main() {
     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     `)
 
-	fmt.Println(`	GET http://localhost:8080/api/v1`)
+	fmt.Println(`HTML:	GET http://localhost:8080`)
+	fmt.Println(`API:	GET http://localhost:8080/api/v1`)
+
 	i := interactor.NewInteractor(conn)
 	r := i.NewRepository()
 	a := i.NewApplication(r)

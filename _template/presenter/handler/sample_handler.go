@@ -14,6 +14,7 @@ type(
 	}
 	SampleHandler interface {
 		SampleIndex(w http.ResponseWriter, r *http.Request)
+		SampleHTML(w http.ResponseWriter, r *http.Request)
 	}
 	response struct {
 		Status int
@@ -43,4 +44,16 @@ func (s *sampleHandler) SampleIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_ , _ = w.Write(res)
+}
+
+func (s *sampleHandler) SampleHTML(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := s.parseTemplate("sample", "index")
+
+	if err != nil {
+		log.Fatal("err :", err)
+	}
+
+	if err := tmpl.Execute(w, nil); err != nil {
+		log.Printf("failed to execute template: %v", err)
+	}
 }
