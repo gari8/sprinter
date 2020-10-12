@@ -8,7 +8,7 @@ import (
 
 var (
 	DRIVER = "postgres"
-	HOSTNAME = "@@.ImportPath@@"
+	HOSTNAME = "@@.ImportPath@@db"
 	USER = "postgres"
 	DBNAME = "postgres"
 	PASSWORD = "postgres"
