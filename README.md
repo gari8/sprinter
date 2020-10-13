@@ -15,9 +15,9 @@ go get github.com/HAGARIHAYATO/sprinter
 ### How to use
 
 ```
-sprinter -path=<application-name>
+sprinter -path=<application-name> -db=<'postgres' or 'mysql'>(optional: default 'postgres')
 
-ex... sprinter -path=go-app
+ex... sprinter -path=go-app -db=mysql
 
       cd go-app
       
@@ -27,6 +27,7 @@ ex... sprinter -path=go-app
       ├── Dockerfile
       ├── README.md
       ├── application
+      │   ├── README.md
       │   └── sample_application.go
       ├── build.sh
       ├── docker-compose.yml
@@ -34,25 +35,40 @@ ex... sprinter -path=go-app
       │   ├── model
       │   │   └── sample_model.go
       │   └── repository
+      │       ├── README.md
       │       └── sample_repository.go
       ├── go.mod
       ├── infrastructure
+      │   ├── mysql
+      │   │   ├── conf
+      │   │   │   └── database.go
+      │   │   └── init
+      │   │       └── 1_init.sql
       │   └── postgres
       │       ├── conf
       │       │   └── database.go
       │       └── init
       │           └── 1_init.sql
       ├── interactor
+      │   ├── README.md
       │   └── interactor.go
       ├── main.go
       └── presenter
           ├── handler
+          │   ├── README.md
+          │   ├── handler_util.go
           │   └── sample_handler.go
           ├── middleware
           │   └── main.go
-          └── router
-              ├── router.go
-              └── router_test.go
+          ├── router
+          │   ├── router.go
+          │   └── router_test.go
+          └── template
+              ├── layout
+              │   ├── _footer.html
+              │   └── _header.html
+              └── sample
+                  └── index.html
 ```
 
 ```
@@ -60,5 +76,5 @@ docker-compose build
 
 docker-compose up
 
-open http://localhost:8080/api/v1
+open http://localhost:8080/api/v1 or http://localhost:8080
 ```
