@@ -8,7 +8,7 @@ import (
 
 var (
 	DRIVER   = "mysql"
-	HOSTNAME = "sampledb"
+	HOSTNAME = "@@.ImportPath@@db"
 	USER     = "mysql"
 	DBNAME   = "mysql"
 	PASSWORD = "mysql"
