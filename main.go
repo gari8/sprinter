@@ -23,6 +23,7 @@ import (
 type (
 	Sprinter struct {
 		ImportPath string
+		DataBase string
 		ExeName string
 		Dir string
 		Args []string
@@ -30,13 +31,20 @@ type (
 	Symbol struct {
 		Pkg string
 		ImportPath string
+		DataBase int
 		GoVer string
 	}
+)
+
+const (
+	Psql = iota
+	Mysql
 )
 
 func main() {
 	var sprinter Sprinter
 	flag.StringVar(&sprinter.ImportPath, "path", "", "import path")
+	flag.StringVar(&sprinter.DataBase, "db", "", "which database default postgres")
 	flag.Parse()
 	sprinter.ExeName = os.Args[0]
 	sprinter.Args = flag.Args()
@@ -56,6 +64,21 @@ func (s *Sprinter) Run() error {
 		sym.Pkg = path.Base(s.ImportPath)
 	} else {
 		return errors.New("package name is not found")
+	}
+
+	if s.DataBase != "" {
+		switch s.DataBase {
+		case "postgres":
+			sym.DataBase = Psql
+		case "mysql":
+			sym.DataBase = Mysql
+		default:
+			log.Fatal("Enter either 'postgres' or 'mysql' for the database")
+		}
+	} else {
+		fmt.Println("The database basically uses postgres")
+		fmt.Println("If you want to use mysql, select mysql with '-db' option")
+		sym.DataBase = Psql
 	}
 
 	cwd, err := os.Getwd()

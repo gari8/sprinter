@@ -3,7 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
+	@@ if .DataBase == 1 -@@
+	"@@.ImportPath@@/infrastructure/mysql/conf"
+	@@ else @@
 	"@@.ImportPath@@/infrastructure/postgres/conf"
+	@@ end @@
 	"@@.ImportPath@@/interactor"
 	"@@.ImportPath@@/presenter/middleware"
 	"@@.ImportPath@@/presenter/router"

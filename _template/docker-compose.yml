@@ -12,6 +12,23 @@ services:
     ports:
       - 8080:8080
     command: sh ./build.sh
+  @@ if .DataBase == 1 -@@
+  @@.ImportPath@@db:
+      image: mysql:8.0.21
+      container_name: @@.ImportPath@@db
+      environment:
+        MYSQL_ROOT_PASSWORD: mysql
+        MYSQL_DATABASE: mysql
+        MYSQL_USER: mysql
+        MYSQL_PASSWORD: mysql
+        TZ: 'Asia/Tokyo'
+      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      volumes:
+        - $PWD/infrastructure/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+        - $PWD/infrastructure/mysql/init:/docker-entrypoint-initdb.d
+      ports:
+        - 3306:3306
+  @@ else @@
   @@.ImportPath@@db:
     image: postgres:10-alpine
     container_name: @@.ImportPath@@db
@@ -27,3 +44,4 @@ services:
       - $PWD/infrastructure/postgres/init:/docker-entrypoint-initdb.d
       #      this volume allows for data persistence; if you make data persistent, make /infrastructure/postgres/data as empty directory and you remove comment out from this volume.
       #      - $PWD/infrastructure/postgres/data:/var/lib/postgresql/data
+  @@ end @@
