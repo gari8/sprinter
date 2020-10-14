@@ -40,6 +40,11 @@ services:
       - PGPASSWORD=postgres
       - POSTGRES_DB=postgres
       - DATABASE_HOST=localhost
+    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "5"
     volumes:
       - $PWD/infrastructure/postgres/init:/docker-entrypoint-initdb.d
       #      this volume allows for data persistence; if you make data persistent, make /infrastructure/postgres/data as empty directory and you remove comment out from this volume.
