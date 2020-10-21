@@ -12,11 +12,13 @@ import (
 	"golang.org/x/tools/txtar"
 )
 
-func main() {
+type archive txtar.Archive
 
+func main() {
 	var (
-		pref = flag.String("strip", "", "string which remove from head of path")
+		pref string
 	)
+	flag.StringVar(&pref, "strip", "", "string which remove from head of path")
 	flag.Parse()
 
 	dir := flag.Arg(0)
@@ -29,9 +31,55 @@ func main() {
 		log.Fatal("no such a output path")
 	}
 
-	var ar txtar.Archive
+	var onion archive
+	var clean archive
 
-	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+	err := onion.walkTemplate(dir + "/_onion/", pref + "_onion/")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = clean.walkTemplate(dir + "/_clean/", pref + "_clean/")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w, err := os.Create(output)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	archivedOnion := archiveToString(onion)
+	archivedClean := archiveToString(clean)
+
+
+	if archivedOnion != "" || archivedClean != "" {
+		fmt.Fprintln(w, "// DO NOT EDIT.")
+		fmt.Fprintln(w, "")
+		fmt.Fprintln(w, "package main")
+		fmt.Fprintln(w)
+		fmt.Fprintln(w, `import "text/template"`)
+		fmt.Fprintln(w)
+		fmt.Fprintf(w, "var tmplOnion = template.Must(template.New"+
+			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedOnion)
+		fmt.Fprintf(w, "var tmplClean = template.Must(template.New"+
+			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedClean)
+	}
+
+	if err := w.Close(); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func archiveToString(ar archive) string {
+	arc := txtar.Archive(ar)
+	return string(txtar.Format(&arc))
+}
+
+func (ar *archive)walkTemplate(dir string, pref string) error {
+	if err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -56,35 +104,12 @@ func main() {
 
 		p := filepath.ToSlash(path)
 		ar.Files = append(ar.Files, txtar.File{
-			Name: strings.TrimPrefix(p, *pref),
+			Name: strings.TrimPrefix(p, pref),
 			Data: data,
 		})
-
 		return nil
-	})
-
-	if err != nil {
-		log.Fatal(err)
+	}); err != nil {
+		return err
 	}
-
-	w, err := os.Create(output)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	archived := string(txtar.Format(&ar))
-	if archived != "" {
-		fmt.Fprintln(w, "// DO NOT EDIT.")
-		fmt.Fprintln(w, "")
-		fmt.Fprintln(w, "package main")
-		fmt.Fprintln(w)
-		fmt.Fprintln(w, `import "text/template"`)
-		fmt.Fprintln(w)
-		fmt.Fprintf(w, "var tmpl = template.Must(template.New"+
-			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archived)
-	}
-
-	if err := w.Close(); err != nil {
-		log.Fatal(err)
-	}
+	return nil
 }

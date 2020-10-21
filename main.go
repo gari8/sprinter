@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"errors"
 	"flag"
@@ -23,10 +24,12 @@ import (
 type (
 	Sprinter struct {
 		ImportPath string
-		DataBase string
+		DataBase int
 		ExeName string
 		Dir string
-		Args []string
+		isCreateMode bool
+		isHelpMode bool
+		Mode int
 	}
 	Symbol struct {
 		Pkg string
@@ -41,17 +44,95 @@ const (
 	Mysql
 )
 
+const (
+	Onion = iota + 1
+	Clean
+)
+
 func main() {
 	var sprinter Sprinter
-	flag.StringVar(&sprinter.ImportPath, "path", "", "import path")
-	flag.StringVar(&sprinter.DataBase, "db", "", "which database default postgres")
+	flag.BoolVar(&sprinter.isCreateMode, "new", false, "create mode")
+	flag.BoolVar(&sprinter.isHelpMode, "help", false, "help mode")
+	flag.BoolVar(&sprinter.isCreateMode, "n", false, "create mode")
+	flag.BoolVar(&sprinter.isHelpMode, "h", false, "help mode")
 	flag.Parse()
 	sprinter.ExeName = os.Args[0]
-	sprinter.Args = flag.Args()
 
-	if err := sprinter.Run(); err != nil {
-		log.Fatal(err)
+	if sprinter.isHelpMode {
+		fmt.Print(helpMessage)
+		return
 	}
+
+	if sprinter.isCreateMode {
+		sprinter.conversation()
+		if err := sprinter.Run(); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
+	fmt.Println("\n-h or -help")
+}
+
+func (s *Sprinter) conversation() {
+	sc := bufio.NewScanner(os.Stdin)
+	fmt.Println("[1] Please enter the title of your application")
+	fmt.Print(" * ")
+	for sc.Scan() {
+		if sc.Text() != "" {
+			s.ImportPath = sc.Text()
+			break
+		}
+		fmt.Println("[error] Please enter the title  ...again")
+		fmt.Print(" * ")
+	}
+	fmt.Println("ok")
+	fmt.Println("[2] Please select the database  ...default postgres")
+	fmt.Print(" * ('postgres' or 'mysql' or empty) ")
+	for sc.Scan() {
+		switch sc.Text() {
+		case "postgres":
+			s.DataBase = Psql
+		case "mysql":
+			s.DataBase = Mysql
+		default:
+			if sc.Text() != "" {
+				fmt.Println("[error] Enter either 'postgres' or 'mysql' or empty for the database  ...again")
+				fmt.Print(" * ")
+				continue
+			}
+			s.DataBase = Psql
+			fmt.Print(" * ")
+			fmt.Println("use postgres")
+		}
+		break
+	}
+	fmt.Println("ok")
+	fmt.Println("[3] Please select the architecture  ...default onion")
+	fmt.Print(" * ('onion' or '_clean' or empty) ")
+	for sc.Scan() {
+		switch sc.Text() {
+		case "onion":
+			s.Mode = Onion
+		case "_clean":
+			s.Mode = Clean
+		default:
+			if sc.Text() != "" {
+				fmt.Println("[error] Enter either 'onion' or '_clean' for the database  ...again")
+				fmt.Print(" * ")
+				continue
+			}
+			s.Mode = Onion
+			fmt.Print(" * ")
+			fmt.Println("use onion")
+		}
+		break
+	}
+	fmt.Println("ok")
+	s.Mode = Onion
+
+	fmt.Println("")
+	fmt.Println("create successfully")
 }
 
 func (s *Sprinter) Run() error {
@@ -66,19 +147,13 @@ func (s *Sprinter) Run() error {
 		return errors.New("package name is not found")
 	}
 
-	if s.DataBase != "" {
-		switch s.DataBase {
-		case "postgres":
-			sym.DataBase = Psql
-		case "mysql":
-			sym.DataBase = Mysql
-		default:
-			log.Fatal("Enter either 'postgres' or 'mysql' for the database")
-		}
-	} else {
-		fmt.Println("The database basically uses postgres")
-		fmt.Println("If you want to use mysql, select mysql with '-db' option")
-		sym.DataBase = Psql
+	switch s.DataBase {
+	case Psql:
+		sym.DataBase = s.DataBase
+	case Mysql:
+		sym.DataBase = s.DataBase
+	default:
+		log.Fatal("Enter either 'postgres' or 'mysql' for the database")
 	}
 
 	cwd, err := os.Getwd()
@@ -128,8 +203,17 @@ func (s *Sprinter) importPath(cwd string) string {
 func (s *Sprinter) createAll(sym *Symbol) error {
 
 	var buf bytes.Buffer
-	if err := tmpl.Execute(&buf, sym); err != nil {
-		return err
+	switch s.Mode {
+	case Onion:
+		if err := tmplOnion.Execute(&buf, sym); err != nil {
+			return err
+		}
+	case Clean:
+		if err := tmplClean.Execute(&buf, sym); err != nil {
+			return err
+		}
+	default:
+		return errors.New("invalid command")
 	}
 
 	ar := txtar.Parse(buf.Bytes())
@@ -182,3 +266,8 @@ func (s *Sprinter) createFile(f txtar.File) (rerr error) {
 
 	return nil
 }
+
+var helpMessage = `
+-help or -h help command
+-new or -n create command
+`
