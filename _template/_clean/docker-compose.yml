@@ -2,7 +2,7 @@ version: "3.5"
 services:
   @@.ImportPath@@:
     container_name: @@.ImportPath@@
-    build: ..
+    build: .
     tty: true
     restart: always
     volumes:
