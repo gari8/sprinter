@@ -114,7 +114,7 @@ func (s *Sprinter) conversation() {
 		switch sc.Text() {
 		case "onion":
 			s.Mode = Onion
-		case "_clean":
+		case "clean":
 			s.Mode = Clean
 		default:
 			if sc.Text() != "" {
