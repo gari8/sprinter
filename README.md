@@ -11,6 +11,7 @@ go get github.com/HAGARIHAYATO/sprinter
 ### Architecture
 
 - Onion Architecture
+- Clean Architecture
 
 ### How to use
 
