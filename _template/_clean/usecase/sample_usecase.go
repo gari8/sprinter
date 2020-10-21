@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"clean/domain/model"
-	"clean/domain/repository"
+	"@@.ImportPath@@/domain/model"
+	"@@.ImportPath@@/domain/repository"
 )
 
 type (
