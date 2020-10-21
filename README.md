@@ -15,9 +15,12 @@ go get github.com/HAGARIHAYATO/sprinter
 ### How to use
 
 ```
-sprinter -path=<application-name> -db=<'postgres' or 'mysql'>(optional: default 'postgres')
+sprinter -new
+or
+sprinter -n
 
-ex... sprinter -path=go-app -db=mysql
+      sprinter -new
+      <conversation>
 
       cd go-app
       
