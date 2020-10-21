@@ -109,7 +109,7 @@ func (s *Sprinter) conversation() {
 	}
 	fmt.Println("ok")
 	fmt.Println("[3] Please select the architecture  ...default onion")
-	fmt.Print(" * ('onion' or '_clean' or empty) ")
+	fmt.Print(" * ('onion' or 'clean' or empty) ")
 	for sc.Scan() {
 		switch sc.Text() {
 		case "onion":
@@ -118,7 +118,7 @@ func (s *Sprinter) conversation() {
 			s.Mode = Clean
 		default:
 			if sc.Text() != "" {
-				fmt.Println("[error] Enter either 'onion' or '_clean' for the database  ...again")
+				fmt.Println("[error] Enter either 'onion' or 'clean' for the database  ...again")
 				fmt.Print(" * ")
 				continue
 			}
@@ -129,10 +129,10 @@ func (s *Sprinter) conversation() {
 		break
 	}
 	fmt.Println("ok")
-	s.Mode = Onion
 
 	fmt.Println("")
-	fmt.Println("create successfully")
+	fmt.Println(" * successfully")
+	fmt.Println("")
 }
 
 func (s *Sprinter) Run() error {
