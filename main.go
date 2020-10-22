@@ -116,7 +116,7 @@ func (s *Sprinter) conversation() {
 		return
 	}
 
-	s.ImportPath = answers.Name
+	s.ImportPath = strings.ToLower(answers.Name)
 
 	switch answers.DBN {
 	case "Postgres":

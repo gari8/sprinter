@@ -1,8 +1,10 @@
 package main
 
 import (
+	"@@.ImportPath@@/injector"
 	"fmt"
 	"net/http"
+)
 	@@ if .DataBase -@@
 	"@@.ImportPath@@/infrastructure/database/mysql/conf"
 	@@ else @@
@@ -34,7 +36,7 @@ func main() {
 	fmt.Println(`HTML:	GET http://localhost:8080`)
 	fmt.Println(`API:	GET http://localhost:8080/api/v1`)
 
-	i := injector.NewInteractor(conn)
+	i := injector.NewInjector(conn)
 	r := i.NewRepository()
 	a := i.NewUseCase(r)
 	h := i.NewController(a)

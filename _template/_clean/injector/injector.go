@@ -27,7 +27,7 @@ type (
 	}
 )
 
-func NewInteractor(conn *sql.DB) Injector {
+func NewInjector(conn *sql.DB) Injector {
 	return &injector{conn}
 }
 
