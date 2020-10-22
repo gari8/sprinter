@@ -1,3 +1,3 @@
 #!/bin/bash
 
-go build -o app && ./app
+reflex -r '(\.go$|go\.mod)' -s go run main.go

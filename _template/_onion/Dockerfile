@@ -4,6 +4,4 @@ ENV GO111MODULE=on
 
 WORKDIR /app
 COPY go.mod .
-
-RUN go mod tidy
-COPY . .
+RUN apk add --no-cache alpine-sdk git && go get github.com/cespare/reflex

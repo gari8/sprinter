@@ -56,15 +56,15 @@ func main() {
 
 
 	if archivedOnion != "" || archivedClean != "" {
-		fmt.Fprintln(w, "// DO NOT EDIT.")
-		fmt.Fprintln(w, "")
-		fmt.Fprintln(w, "package main")
-		fmt.Fprintln(w)
-		fmt.Fprintln(w, `import "text/template"`)
-		fmt.Fprintln(w)
-		fmt.Fprintf(w, "var tmplOnion = template.Must(template.New"+
+		_, _ = fmt.Fprintln(w, "// DO NOT EDIT.")
+		_, _ = fmt.Fprintln(w, "")
+		_, _ = fmt.Fprintln(w, "package main")
+		_, _ = fmt.Fprintln(w)
+		_, _ = fmt.Fprintln(w, `import "text/template"`)
+		_, _ = fmt.Fprintln(w)
+		_, _ = fmt.Fprintf(w, "var tmplOnion = template.Must(template.New"+
 			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedOnion)
-		fmt.Fprintf(w, "var tmplClean = template.Must(template.New"+
+		_, _ = fmt.Fprintf(w, "var tmplClean = template.Must(template.New"+
 			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedClean)
 	}
 
