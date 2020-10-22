@@ -1,13 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"errors"
 	"flag"
 	"fmt"
 	"go/build"
 	"go/format"
+	"gopkg.in/AlecAivazis/survey.v1"
 	"io"
 	"log"
 	"os"
@@ -49,6 +49,32 @@ const (
 	Clean
 )
 
+var qs = []*survey.Question{
+	{
+		Name: "name",
+		Prompt: &survey.Input{
+			Message: "[1] Please enter the title of your application",
+		},
+		Validate: survey.Required,
+		Transform: survey.Title,
+	},
+	{
+		Name: "dbname",
+		Prompt: &survey.Select{
+			Message: "[2] Please select the database",
+			Options: []string{"Postgres", "Mysql"},
+			Default: "Postgres",
+		},
+	},
+	{
+		Name: "architecture",
+		Prompt: &survey.Select{
+			Message: "[3] Please select the architecture",
+			Options: []string{"Onion", "Clean"},
+		},
+	},
+}
+
 func main() {
 	var sprinter Sprinter
 	flag.BoolVar(&sprinter.isCreateMode, "new", false, "create mode")
@@ -75,63 +101,43 @@ func main() {
 }
 
 func (s *Sprinter) conversation() {
-	sc := bufio.NewScanner(os.Stdin)
-	fmt.Println("[1] Please enter the title of your application")
-	fmt.Print(" * ")
-	for sc.Scan() {
-		if sc.Text() != "" {
-			s.ImportPath = sc.Text()
-			break
-		}
-		fmt.Println("[error] Please enter the title  ...again")
-		fmt.Print(" * ")
-	}
-	fmt.Println("ok")
-	fmt.Println("[2] Please select the database  ...default postgres")
-	fmt.Print(" * ('postgres' or 'mysql' or empty) ")
-	for sc.Scan() {
-		switch sc.Text() {
-		case "postgres":
-			s.DataBase = Psql
-		case "mysql":
-			s.DataBase = Mysql
-		default:
-			if sc.Text() != "" {
-				fmt.Println("[error] Enter either 'postgres' or 'mysql' or empty for the database  ...again")
-				fmt.Print(" * ")
-				continue
-			}
-			s.DataBase = Psql
-			fmt.Print(" * ")
-			fmt.Println("use postgres")
-		}
-		break
-	}
-	fmt.Println("ok")
-	fmt.Println("[3] Please select the architecture  ...default onion")
-	fmt.Print(" * ('onion' or 'clean' or empty) ")
-	for sc.Scan() {
-		switch sc.Text() {
-		case "onion":
-			s.Mode = Onion
-		case "clean":
-			s.Mode = Clean
-		default:
-			if sc.Text() != "" {
-				fmt.Println("[error] Enter either 'onion' or 'clean' for the database  ...again")
-				fmt.Print(" * ")
-				continue
-			}
-			s.Mode = Onion
-			fmt.Print(" * ")
-			fmt.Println("use onion")
-		}
-		break
-	}
-	fmt.Println("ok")
+	answers := struct {
+		Name          string `survey:"name"`
+		DBN           string `survey:"dbname"`
+		Arc           string `survey:"architecture"`
+	}{}
 
+	err := survey.Ask(qs, &answers)
+	if err != nil {
+		log.Fatalf("[error] %s  ...stopping", err)
+	}
+
+	if answers.Name == "" {
+		return
+	}
+
+	s.ImportPath = answers.Name
+
+	switch answers.DBN {
+	case "Postgres":
+		s.DataBase = Psql
+	case "Mysql":
+		s.DataBase = Mysql
+	default:
+
+	}
+
+	switch answers.Arc {
+	case "Onion":
+		s.Mode = Onion
+	case "Clean":
+		s.Mode = Clean
+	default:
+
+	}
+
+	fmt.Println("ok")
 	fmt.Println("")
-	fmt.Println(" * successfully")
 	fmt.Println("")
 }
 
