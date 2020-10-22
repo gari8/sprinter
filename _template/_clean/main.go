@@ -1,10 +1,8 @@
 package main
 
 import (
-	"@@.ImportPath@@/injector"
 	"fmt"
 	"net/http"
-)
 	@@ if .DataBase -@@
 	"@@.ImportPath@@/infrastructure/database/mysql/conf"
 	@@ else @@
