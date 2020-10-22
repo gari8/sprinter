@@ -1,8 +1,8 @@
 package injector
 
 import (
-	"@@.ImportPath@@/domain/repository"
 	"@@.ImportPath@@/interfaces/controllers"
+	"@@.ImportPath@@/interfaces/repository"
 	"@@.ImportPath@@/usecase"
 	"database/sql"
 )

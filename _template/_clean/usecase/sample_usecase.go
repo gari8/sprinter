@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"@@.ImportPath@@/domain/model"
-	"@@.ImportPath@@/domain/repository"
+	"@@.ImportPath@@/interfaces/repository"
 )
 
 type (
