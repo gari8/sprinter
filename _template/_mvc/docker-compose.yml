@@ -37,8 +37,8 @@ services:
         TZ: 'Asia/Tokyo'
       command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
       volumes:
-        - $PWD/infrastructure/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-        - $PWD/infrastructure/mysql/init:/docker-entrypoint-initdb.d
+        - $PWD/database/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+        - $PWD/database/mysql/init:/docker-entrypoint-initdb.d
       ports:
         - 3306:3306
   @@ else @@
@@ -59,7 +59,7 @@ services:
           max-size: "10k"
           max-file: "5"
       volumes:
-        - $PWD/infrastructure/postgres/init:/docker-entrypoint-initdb.d
+        - $PWD/database/postgres/init:/docker-entrypoint-initdb.d
         #      this volume allows for data persistence; if you make data persistent, make /infrastructure/postgres/data as empty directory and you remove comment out from this volume.
-        #      - $PWD/infrastructure/postgres/data:/var/lib/postgresql/data
+        #      - $PWD/database/postgres/data:/var/lib/postgresql/data
   @@ end @@
