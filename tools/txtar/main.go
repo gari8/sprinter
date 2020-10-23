@@ -31,8 +31,7 @@ func main() {
 		log.Fatal("no such a output path")
 	}
 
-	var onion archive
-	var clean archive
+	var onion, clean, mvc archive
 
 	err := onion.walkTemplate(dir + "/_onion/", pref + "_onion/")
 
@@ -46,6 +45,12 @@ func main() {
 		log.Fatal(err)
 	}
 
+	err = mvc.walkTemplate(dir + "/_mvc/", pref + "_mvc/")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	w, err := os.Create(output)
 	if err != nil {
 		log.Fatal(err)
@@ -53,6 +58,7 @@ func main() {
 
 	archivedOnion := archiveToString(onion)
 	archivedClean := archiveToString(clean)
+	archivedMVC := archiveToString(mvc)
 
 
 	if archivedOnion != "" || archivedClean != "" {
@@ -66,6 +72,8 @@ func main() {
 			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedOnion)
 		_, _ = fmt.Fprintf(w, "var tmplClean = template.Must(template.New"+
 			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedClean)
+		_, _ = fmt.Fprintf(w, "var tmplMVC = template.Must(template.New"+
+			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedMVC)
 	}
 
 	if err := w.Close(); err != nil {

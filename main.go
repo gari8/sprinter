@@ -47,6 +47,7 @@ const (
 const (
 	Onion = iota + 1
 	Clean
+	MVC
 )
 
 var qs = []*survey.Question{
@@ -70,7 +71,7 @@ var qs = []*survey.Question{
 		Name: "architecture",
 		Prompt: &survey.Select{
 			Message: "[3] Please select the architecture",
-			Options: []string{"Onion", "Clean"},
+			Options: []string{"Onion", "Clean", "MVC"},
 		},
 	},
 }
@@ -132,6 +133,8 @@ func (s *Sprinter) conversation() {
 		s.Mode = Onion
 	case "Clean":
 		s.Mode = Clean
+	case "MVC":
+		s.Mode = MVC
 	default:
 
 	}
@@ -216,6 +219,10 @@ func (s *Sprinter) createAll(sym *Symbol) error {
 		}
 	case Clean:
 		if err := tmplClean.Execute(&buf, sym); err != nil {
+			return err
+		}
+	case MVC:
+		if err := tmplMVC.Execute(&buf, sym); err != nil {
 			return err
 		}
 	default:

@@ -1,0 +1,4 @@
+module @@.ImportPath@@
+
+go @@.GoVer@@
+
