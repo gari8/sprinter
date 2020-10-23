@@ -1,18 +1,18 @@
-### Presenter layer
+### Application layer
 
 ### OverView
 
-- This layer receives information from the application layer.
+- this layer is like UseCase . This layer receives information from the repository layer.
 
 ### How to use
 
-#### Create Presenter Handler
+#### Create Repository Handler
 
 - At first: Create a function that belongs to a structure
 ```
 ex...
 
-func (e *exampleHandler) ExampleIndex() (*model.Example, error) {
+func (e *exampleRepository) Fetch() (*model.Example, error) {
     // abridgement
 }
 ```
@@ -21,7 +21,7 @@ func (e *exampleHandler) ExampleIndex() (*model.Example, error) {
 ```
 ex...
 
-type ExampleHandler interface {
-    ExampleIndex() (*model.Example, error) // additional codes
+type ExampleRepository interface {
+    Fetch() (*model.Example, error) // additional codes
 }
 ```

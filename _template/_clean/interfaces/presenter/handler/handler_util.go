@@ -1,4 +1,4 @@
-package controllers
+package handler
 
 import (
 	"fmt"
@@ -19,7 +19,7 @@ func parseTemplate(dir string, fileName string) (*template.Template, error) {
 
 	var layout string
 
-	if err := filepath.Walk("interfaces/template/layout", func(path string, info os.FileInfo, err error) error {
+	if err := filepath.Walk("interfaces/presenter/template/layout", func(path string, info os.FileInfo, err error) error {
 
 		if err != nil {
 			return err
@@ -40,7 +40,7 @@ func parseTemplate(dir string, fileName string) (*template.Template, error) {
 		fmt.Println(err)
 	}
 
-	if err := filepath.Walk("interfaces/template/"+dir, func(path string, info os.FileInfo, err error) error {
+	if err := filepath.Walk("interfaces/presenter/template/"+dir, func(path string, info os.FileInfo, err error) error {
 
 		if err != nil {
 			return err
@@ -53,7 +53,7 @@ func parseTemplate(dir string, fileName string) (*template.Template, error) {
 				return err
 			}
 
-			filename := strings.Replace(path, "interfaces/template/"+dir, "", -1)
+			filename := strings.Replace(path, "interfaces/presenter/template/"+dir, "", -1)
 
 			if strings.Contains(filename, fileName) {
 				tmpl = tmpl.New(filename)

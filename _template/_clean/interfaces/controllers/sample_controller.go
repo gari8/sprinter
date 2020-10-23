@@ -1,54 +1,35 @@
 package controllers
 
 import (
-	"@@.ImportPath@@/usecase"
-	"encoding/json"
-	"log"
-	"net/http"
+	"@@.ImportPath@@/domain/model"
+	"database/sql"
 )
 
 type (
 	sampleController struct {
-		usecase.SampleUseCase
+		conn *sql.DB
 	}
 	SampleController interface {
-		SampleIndex(w http.ResponseWriter, r *http.Request)
-		SampleHTML(w http.ResponseWriter, r *http.Request)
+		Fetch() ([]*model.Sample, error)
 	}
 )
 
-func NewSampleController(as usecase.SampleUseCase) SampleController {
-	return &sampleController{as}
+func NewSampleController(Conn *sql.DB) SampleController {
+	return &sampleController{Conn}
 }
 
-func (s *sampleController) SampleIndex(w http.ResponseWriter, r *http.Request) {
-	samples, err := s.SampleUseCase.GetSamples()
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+func (s *sampleController) Fetch() ([]*model.Sample, error) {
+	var samples []*model.Sample
+	rows, err := s.conn.Query("SELECT id, text FROM samples;")
+	if rows == nil {
+		return nil, err
 	}
-
-	resp := &response{
-		Status: http.StatusOK,
-		Result: samples,
+	for rows.Next() {
+		sample := &model.Sample{}
+		err = rows.Scan(&sample.ID, &sample.Text)
+		if err == nil {
+			samples = append(samples, sample)
+		}
 	}
-
-	res, err := json.Marshal(resp)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	_, _ = w.Write(res)
-}
-
-func (s *sampleController) SampleHTML(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := parseTemplate("sample", "index")
-
-	if err != nil {
-		log.Fatal("err :", err)
-	}
-
-	if err := tmpl.Execute(w, nil); err != nil {
-		log.Printf("failed to execute template: %v", err)
-	}
+	return samples, err
 }

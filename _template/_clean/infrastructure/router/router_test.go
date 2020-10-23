@@ -1,7 +1,7 @@
 package router_test
 
 import (
-	"@@.ImportPath@@/infrastructure/router"
+	"apps/infrastructure/router"
 	"github.com/go-chi/chi"
 	"github.com/stretchr/testify/assert"
 	"reflect"

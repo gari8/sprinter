@@ -1,16 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
 	@@ if .DataBase -@@
 	"@@.ImportPath@@/infrastructure/database/mysql/conf"
 	@@ else @@
 	"@@.ImportPath@@/infrastructure/database/postgres/conf"
     @@ end @@
+	"@@.ImportPath@@/interfaces/controllers"
+	"@@.ImportPath@@/interfaces/presenter/handler"
+	"@@.ImportPath@@/usecase"
+	"fmt"
+	"net/http"
+
 	"@@.ImportPath@@/infrastructure/middleware"
 	"@@.ImportPath@@/infrastructure/router"
-	"@@.ImportPath@@/injector"
 )
 
 func main() {
@@ -34,10 +37,9 @@ func main() {
 	fmt.Println(`HTML:	GET http://localhost:8080`)
 	fmt.Println(`API:	GET http://localhost:8080/api/v1`)
 
-	i := injector.NewInjector(conn)
-	r := i.NewRepository()
-	a := i.NewUseCase(r)
-	h := i.NewController(a)
+	c := controllers.NewController(conn)
+	u := usecase.NewUseCase(c)
+	h := handler.NewHandler(u)
 	m := middleware.NewMiddleware()
 	s := router.NewRouter()
 	s.Router(h, m)
