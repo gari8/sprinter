@@ -21,7 +21,7 @@ func NewSampleController(sm models.SampleModel) SampleController {
 }
 
 func (s *sampleController) SampleIndex(w http.ResponseWriter, r *http.Request) {
-	samples, err := s.Fetch()
+	samples, err := s.SampleModel.Fetch()
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
