@@ -1,8 +1,8 @@
 package router
 
 import (
-	mid "apps/infrastructure/middleware"
-	"apps/interfaces/presenter/handler"
+	mid "@@.ImportPath@@/infrastructure/middleware"
+	"@@.ImportPath@@/interfaces/presenter/handler"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
