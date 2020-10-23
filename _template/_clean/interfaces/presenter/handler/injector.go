@@ -1,6 +1,6 @@
 package handler
 
-import "apps/usecase"
+import "@@.ImportPath@@/usecase"
 
 type (
 	Handler struct {
