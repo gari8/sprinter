@@ -12,6 +12,7 @@ go get github.com/HAGARIHAYATO/sprinter
 
 - Onion Architecture
 - Clean Architecture
+- MVC Pattern
 
 ### How to use
 
