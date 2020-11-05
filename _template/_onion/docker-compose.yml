@@ -61,5 +61,5 @@ services:
     volumes:
       - $PWD/infrastructure/postgres/init:/docker-entrypoint-initdb.d
       #      this volume allows for data persistence; if you make data persistent, make /infrastructure/postgres/data as empty directory and you remove comment out from this volume.
-      #      - $PWD/infrastructure/postgres/data:/var/lib/postgresql/data
+      #      - $PWD/infrastructure/postgres/data:/var/lib/postgres/data
   @@ end @@
