@@ -5,7 +5,7 @@
 - this command line tool makes it easier for us to design the architecture .
 
 ```
-go get github.com/hagarihayato/sprinter
+go get github.com/gari8/sprinter
 ```
 
 ### Architecture
