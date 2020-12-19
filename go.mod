@@ -1,4 +1,4 @@
-module sprinter
+module github.com/hagarihayato/sprinter
 
 go 1.15
 
