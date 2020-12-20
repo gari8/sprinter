@@ -1,4 +1,4 @@
 module @@.ImportPath@@
 
-go @@.GoVer@@
+go 1.15.6
 
