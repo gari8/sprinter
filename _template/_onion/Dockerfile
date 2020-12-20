@@ -1,4 +1,4 @@
-FROM golang:1.16beta1-alpine3.12
+FROM golang:alpine:@@.GoVer@@
 
 ENV GO111MODULE=on
 
