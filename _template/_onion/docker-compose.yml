@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   @@.ImportPath@@api:
-    container_name: @@.ImportPath@@server
+    container_name: @@.ImportPath@@api
     build: ./server
     tty: true
     restart: always
@@ -48,7 +48,7 @@ services:
       PGPASSWORD: "postgres"
       POSTGRES_DB: "postgres"
       DATABASE_HOST: "localhost"
-    command: database -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
+    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
     logging:
       options:
         max-size: "10k"

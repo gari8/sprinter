@@ -5,6 +5,6 @@ ENV GO111MODULE=on
 WORKDIR /app
 COPY . .
 
-RUN go mod init @@.ImportPath@@
+RUN go mod init server
 
 RUN apk add --no-cache git && go get github.com/cespare/reflex
