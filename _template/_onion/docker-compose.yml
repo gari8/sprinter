@@ -17,25 +17,25 @@ services:
       DRIVER: "mysql"
       DATABASE_URL: "mysql:mysql@tcp(@@.ImportPath@@db:3306)/mysql?charset=utf8&parseTime=true"
       @@ else @@
-      DRIVER: "database"
-      DATABASE_URL: "host=@@.ImportPath@@db user=database dbname=database password=database sslmode=disable"
+      DRIVER: "postgres"
+      DATABASE_URL: "host=@@.ImportPath@@db user=postgres dbname=postgres password=postgres sslmode=disable"
       @@ end @@
     command: sh ./build.sh
   @@ if .DataBase -@@
   @@.ImportPath@@db:
-      image: mysql:8.0.21
-      container_name: @@.ImportPath@@db
-      environment:
-        MYSQL_ROOT_PASSWORD: mysql
-        MYSQL_DATABASE: mysql
-        MYSQL_USER: mysql
-        MYSQL_PASSWORD: mysql
-        TZ: 'Asia/Tokyo'
-      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-      volumes:
-        - ./server/infrastructure/database/init:/docker-entrypoint-initdb.d
-      ports:
-        - 3306:3306
+    image: mysql:8.0.21
+    container_name: @@.ImportPath@@db
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./server/infrastructure/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
   @@ else @@
   @@.ImportPath@@db:
     image: postgres:10-alpine
@@ -43,10 +43,10 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: "database"
-      POSTGRES_PASSWORD: "database"
-      PGPASSWORD: "database"
-      POSTGRES_DB: "database"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGPASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
       DATABASE_HOST: "localhost"
     command: database -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
     logging:

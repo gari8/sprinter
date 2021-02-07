@@ -159,7 +159,7 @@ func (s *Sprinter) Run() error {
 	case Mysql:
 		sym.DataBase = s.DataBase
 	default:
-		log.Fatal("Enter either 'database' or 'mysql' for the database")
+		log.Fatal("Enter either 'postgres' or 'mysql' for the database")
 	}
 
 	cwd, err := os.Getwd()
