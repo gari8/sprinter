@@ -1,10 +1,10 @@
 package router_test
 
 import (
-	"server/router"
 	"github.com/go-chi/chi"
 	"github.com/stretchr/testify/assert"
 	"reflect"
+	"server/router"
 	"testing"
 )
 

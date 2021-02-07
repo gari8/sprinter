@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"server/config/database/conf"
-	"server/interactor"
-	"server/presenter/middleware"
-	"server/presenter/router"
 	"os"
+	"server/config/database/conf"
+	"server/controllers"
+	"server/models"
+	"server/router"
 )
 
 const defaultPort = "8080"
@@ -48,13 +48,10 @@ func main() {
     API:	GET http://localhost:8080/api/v1
     `)
 
-	i := interactor.NewInteractor(conn)
-	r := i.NewRepository()
-	a := i.NewApplication(r)
-	h := i.NewHandler(a)
-	m := middleware.NewMiddleware()
+	m := models.NewModel(conn)
+	c := controllers.NewController(m)
 	s := router.NewRouter()
-	s.Router(h, m)
+	s.Router(c)
 
 	_ = http.ListenAndServe(":"+port, s.Route)
 }

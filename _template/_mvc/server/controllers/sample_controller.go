@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"server/models"
 	"encoding/json"
 	"log"
 	"net/http"
+	"server/models"
 )
 
 type sampleController struct {

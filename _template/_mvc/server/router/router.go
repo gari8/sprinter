@@ -1,9 +1,9 @@
 package router
 
 import (
-	"server/controllers"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"server/controllers"
 )
 
 type Server struct {
