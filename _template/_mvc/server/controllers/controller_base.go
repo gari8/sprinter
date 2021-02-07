@@ -1,6 +1,6 @@
 package controllers
 
-import "@@.ImportPath@@/models"
+import "server/models"
 
 type Controller struct {
 	SampleController

@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"@@.ImportPath@@/models"
+	"server/models"
 	"encoding/json"
 	"log"
 	"net/http"

@@ -1,7 +1,7 @@
 package router
 
 import (
-	"@@.ImportPath@@/controllers"
+	"server/controllers"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
