@@ -102,8 +102,6 @@ func main() {
 		`)
 		fmt.Println("please enter following command")
 		fmt.Println("$ cd ", sprinter.ImportPath)
-		fmt.Println("$ go mod init ", sprinter.ImportPath)
-		fmt.Println("$ cd ..")
 		fmt.Println("$ docker-compose up --build")
 		return
 	}
