@@ -41,18 +41,18 @@ services:
       image: postgres:10-alpine
       container_name: @@.ImportPath@@db
       ports:
-        - "5432:5432"
+        - 5432:5432
       environment:
-        POSTGRES_USER: "postgres"
-        POSTGRES_PASSWORD: "postgres"
-        PGPASSWORD: "postgres"
-        POSTGRES_DB: "postgres"
-        DATABASE_HOST: "localhost"
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        PGPASSWORD: postgres
+        POSTGRES_DB: postgres
+        DATABASE_HOST: localhost
       command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
       logging:
         options:
-          max-size: "10k"
-          max-file: "5"
+          max-size: 10k
+          max-file: 5
       volumes:
         - ./server/config/database/init:/docker-entrypoint-initdb.d
   @@ end @@
