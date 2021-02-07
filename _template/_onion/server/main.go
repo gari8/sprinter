@@ -3,18 +3,36 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"@@.ImportPath@@/infrastructure/database/conf"
-	"@@.ImportPath@@/interactor"
-	"@@.ImportPath@@/presenter/middleware"
-	"@@.ImportPath@@/presenter/router"
+	"server/infrastructure/database/conf"
+	"server/interactor"
+	"server/presenter/middleware"
+	"server/presenter/router"
+	"os"
 )
 
+const defaultPort = "8080"
+
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = defaultPort
+	}
+
 	conn, err := conf.NewDatabaseConnection()
 	if err != nil {
 		panic(err)
 	}
-	defer conn.Close()
+	if conn == nil {
+		panic(err)
+	}
+	defer func() {
+		if conn != nil {
+			if err := conn.Close(); err != nil {
+				panic(err)
+			}
+		}
+	}()
+
 	fmt.Println(`
     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
   *        ####    #####    #####     ####    ##  ##   ######   ######   #####  *
@@ -25,10 +43,10 @@ func main() {
   *  ##  ##   ##       ## ##      ##     ##  ##     ##     ##       ## ##       *
   *  ####    ##       ##  ##    ####    ##  ##     ##     ######   ##  ##       *
     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    `)
 
-	fmt.Println(`HTML:	GET http://localhost:8080`)
-	fmt.Println(`API:	GET http://localhost:8080/server/v1`)
+	HTML:	GET http://localhost:8080
+    API:	GET http://localhost:8080/api/v1
+    `)
 
 	i := interactor.NewInteractor(conn)
 	r := i.NewRepository()
@@ -38,5 +56,5 @@ func main() {
 	s := router.NewRouter()
 	s.Router(h, m)
 
-	_ = http.ListenAndServe(":8080", s.Route)
+	_ = http.ListenAndServe(":"+port, s.Route)
 }

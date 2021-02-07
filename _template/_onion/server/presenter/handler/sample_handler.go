@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"@@.ImportPath@@/application"
+	"server/application"
 	"encoding/json"
 	"log"
 	"net/http"

@@ -1,9 +1,9 @@
 package interactor
 
 import (
-	"@@.ImportPath@@/application"
-	"@@.ImportPath@@/domain/repository"
-	"@@.ImportPath@@/presenter/handler"
+	"server/application"
+	"server/domain/repository"
+	"server/presenter/handler"
 	"database/sql"
 )
 

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"@@.ImportPath@@/domain/model"
+	"server/domain/model"
 	"database/sql"
 )
 

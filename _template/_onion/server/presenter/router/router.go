@@ -1,8 +1,8 @@
 package router
 
 import (
-	"@@.ImportPath@@/interactor"
-	mid "@@.ImportPath@@/presenter/middleware"
+	"server/interactor"
+	mid "server/presenter/middleware"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 )
@@ -23,7 +23,7 @@ func (s *Server) Router(h *interactor.Handler, m mid.Middleware) {
 	s.Route.Route("/", func(r chi.Router) {
 		r.Get("/", h.SampleHandler.SampleHTML)
 	})
-	s.Route.Route("/server/v1", func(r chi.Router) {
+	s.Route.Route("/api/v1", func(r chi.Router) {
 		r.Get("/", h.SampleHandler.SampleIndex)
 		// TODO
 	})
