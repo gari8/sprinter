@@ -51,8 +51,8 @@ services:
     command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
     logging:
       options:
-        max-size: 10k
-        max-file: 5
+        max-size: "10k"
+        max-file: "5"
     volumes:
       - ./server/infrastructure/database/init:/docker-entrypoint-initdb.d
   @@ end @@
