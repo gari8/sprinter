@@ -31,15 +31,9 @@ func main() {
 		log.Fatal("no such a output path")
 	}
 
-	var onion, clean, mvc archive
+	var onion, mvc archive
 
 	err := onion.walkTemplate(dir + "/_onion/", pref + "_onion/")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = clean.walkTemplate(dir + "/_clean/", pref + "_clean/")
 
 	if err != nil {
 		log.Fatal(err)
@@ -57,11 +51,10 @@ func main() {
 	}
 
 	archivedOnion := archiveToString(onion)
-	archivedClean := archiveToString(clean)
 	archivedMVC := archiveToString(mvc)
 
 
-	if archivedOnion != "" || archivedClean != "" {
+	if archivedOnion != "" || archivedMVC != "" {
 		_, _ = fmt.Fprintln(w, "// DO NOT EDIT.")
 		_, _ = fmt.Fprintln(w, "")
 		_, _ = fmt.Fprintln(w, "package main")
@@ -70,8 +63,6 @@ func main() {
 		_, _ = fmt.Fprintln(w)
 		_, _ = fmt.Fprintf(w, "var tmplOnion = template.Must(template.New"+
 			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedOnion)
-		_, _ = fmt.Fprintf(w, "var tmplClean = template.Must(template.New"+
-			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedClean)
 		_, _ = fmt.Fprintf(w, "var tmplMVC = template.Must(template.New"+
 			"(\"template\").Delims(`@@`, `@@`).Parse(%q))\n", archivedMVC)
 	}

@@ -23,7 +23,7 @@ func (s *Server) Router(c *controllers.Controller) {
 	s.Route.Route("/", func(r chi.Router) {
 		r.Get("/", c.SampleController.SampleHTML)
 	})
-	s.Route.Route("/api/v1", func(r chi.Router) {
+	s.Route.Route("/server/v1", func(r chi.Router) {
 		r.Get("/",c.SampleController.SampleIndex)
 		// TODO
 	})

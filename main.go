@@ -46,7 +46,6 @@ const (
 
 const (
 	Onion = iota + 1
-	Clean
 	MVC
 )
 
@@ -71,7 +70,7 @@ var qs = []*survey.Question{
 		Name: "architecture",
 		Prompt: &survey.Select{
 			Message: "[3] Please select the architecture",
-			Options: []string{"Onion", "Clean", "MVC"},
+			Options: []string{"Onion", "MVC"},
 		},
 	},
 }
@@ -131,8 +130,6 @@ func (s *Sprinter) conversation() {
 	switch answers.Arc {
 	case "Onion":
 		s.Mode = Onion
-	case "Clean":
-		s.Mode = Clean
 	case "MVC":
 		s.Mode = MVC
 	default:
@@ -162,7 +159,7 @@ func (s *Sprinter) Run() error {
 	case Mysql:
 		sym.DataBase = s.DataBase
 	default:
-		log.Fatal("Enter either 'postgres' or 'mysql' for the database")
+		log.Fatal("Enter either 'database' or 'mysql' for the database")
 	}
 
 	cwd, err := os.Getwd()
@@ -215,10 +212,6 @@ func (s *Sprinter) createAll(sym *Symbol) error {
 	switch s.Mode {
 	case Onion:
 		if err := tmplOnion.Execute(&buf, sym); err != nil {
-			return err
-		}
-	case Clean:
-		if err := tmplClean.Execute(&buf, sym); err != nil {
 			return err
 		}
 	case MVC:

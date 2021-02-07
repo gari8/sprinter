@@ -11,7 +11,6 @@ go get github.com/gari8/sprinter
 ### Architecture
 
 - Onion Architecture
-- Clean Architecture
 - MVC Pattern
 
 ### How to use

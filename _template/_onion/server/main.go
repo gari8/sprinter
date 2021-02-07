@@ -3,11 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
-	@@ if .DataBase -@@
-	"@@.ImportPath@@/infrastructure/mysql/conf"
-	@@ else @@
-	"@@.ImportPath@@/infrastructure/postgres/conf"
-	@@ end @@
+	"@@.ImportPath@@/infrastructure/database/conf"
 	"@@.ImportPath@@/interactor"
 	"@@.ImportPath@@/presenter/middleware"
 	"@@.ImportPath@@/presenter/router"
@@ -32,7 +28,7 @@ func main() {
     `)
 
 	fmt.Println(`HTML:	GET http://localhost:8080`)
-	fmt.Println(`API:	GET http://localhost:8080/api/v1`)
+	fmt.Println(`API:	GET http://localhost:8080/server/v1`)
 
 	i := interactor.NewInteractor(conn)
 	r := i.NewRepository()

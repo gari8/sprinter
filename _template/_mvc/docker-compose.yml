@@ -19,10 +19,10 @@ services:
         DBNAME: "mysql"
         PASSWORD: "mysql"
         @@ else @@
-        DRIVER: "postgres"
-        USER: "postgres"
-        DBNAME: "postgres"
-        PASSWORD: "postgres"
+        DRIVER: "database"
+        USER: "database"
+        DBNAME: "database"
+        PASSWORD: "database"
         @@ end @@
       command: sh ./build.sh
   @@ if .DataBase -@@
@@ -48,18 +48,18 @@ services:
       ports:
         - "5432:5432"
       environment:
-        POSTGRES_USER: "postgres"
-        POSTGRES_PASSWORD: "postgres"
-        PGPASSWORD: "postgres"
-        POSTGRES_DB: "postgres"
+        POSTGRES_USER: "database"
+        POSTGRES_PASSWORD: "database"
+        PGPASSWORD: "database"
+        POSTGRES_DB: "database"
         DATABASE_HOST: "localhost"
-      command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
+      command: database -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
       logging:
         options:
           max-size: "10k"
           max-file: "5"
       volumes:
-        - $PWD/database/postgres/init:/docker-entrypoint-initdb.d
-        #      this volume allows for data persistence; if you make data persistent, make /infrastructure/postgres/data as empty directory and you remove comment out from this volume.
-        #      - $PWD/database/postgres/data:/var/lib/postgres/data
+        - $PWD/database/database/init:/docker-entrypoint-initdb.d
+        #      this volume allows for data persistence; if you make data persistent, make /infrastructure/database/data as empty directory and you remove comment out from this volume.
+        #      - $PWD/database/database/data:/var/lib/database/data
   @@ end @@

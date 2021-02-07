@@ -8,7 +8,7 @@ import (
 	@@ if .DataBase -@@
 	"@@.ImportPath@@/database/mysql/conf"
 	@@ else @@
-	"@@.ImportPath@@/database/postgres/conf"
+	"@@.ImportPath@@/database/database/conf"
 	@@ end @@
 	"@@.ImportPath@@/router"
 )
@@ -32,7 +32,7 @@ func main() {
     `)
 
 	fmt.Println(`HTML:	GET http://localhost:8080`)
-	fmt.Println(`API:	GET http://localhost:8080/api/v1`)
+	fmt.Println(`API:	GET http://localhost:8080/server/v1`)
 
 	m := models.NewModel(conn)
 	c := controllers.NewController(m)
