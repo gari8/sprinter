@@ -94,6 +94,11 @@ func main() {
 		if err := sprinter.Run(); err != nil {
 			log.Fatal(err)
 		}
+
+		fmt.Println(`
+			
+			...complete
+		`)
 		return
 	}
 
