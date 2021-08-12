@@ -283,6 +283,10 @@ func (s *Sprinter) createFile(f txtar.File) (rerr error) {
 }
 
 var helpMessage = `
+please enter your console
+sprinter -n
+then you may play nice time
+
 -help or -h help command
 -new or -n create command
 `
