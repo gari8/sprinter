@@ -4,7 +4,7 @@ ENV GO113MODULE=on
 
 WORKDIR /app
 
-COPY ../@@.ImportPath@@ .
+COPY .. .
 
 RUN go mod tidy
 

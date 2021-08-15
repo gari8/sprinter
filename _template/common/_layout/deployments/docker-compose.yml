@@ -3,7 +3,7 @@ services:
   api:
     container_name: api
     build:
-      context: ../@@.ImportPath@@
+      context: ../
       dockerfile: ../build/Dockerfile
     tty: true
     restart: always
@@ -15,10 +15,10 @@ services:
       PORT: 8080
       @@ if eq .DataBase "MySQL" -@@
       DRIVER: "mysql"
-      DATABASE_URL: "mysql:mysql@tcp(@@.ImportPath@@db:3306)/mysql?charset=utf8&parseTime=true"
+      DATABASE_URL: "mysql:mysql@tcp(db:3306)/mysql?charset=utf8&parseTime=true"
       @@ else @@
       DRIVER: "postgres"
-      DATABASE_URL: "host=@@.ImportPath@@db user=postgres dbname=postgres password=postgres sslmode=disable"
+      DATABASE_URL: "host=db user=postgres dbname=postgres password=postgres sslmode=disable"
       @@ end @@
     command: sh scripts/build-local.sh
   db:
