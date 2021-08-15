@@ -43,7 +43,7 @@ func Exec () {
 
 
 	if sp.isHelpMode {
-		PrintAny(PYellow, helpMessage)
+		PrintAny(PYellow, help)
 		return
 	}
 
@@ -53,6 +53,8 @@ func Exec () {
 			log.Fatal(err)
 		}
 
+		sp.ImportPath = strings.ToLower(sp.ImportPath)
+
 		PrintAny(PGreen,`
 			
 			...complete
@@ -60,11 +62,11 @@ func Exec () {
 		`)
 		PrintAny(PMagenta,"please enter following command")
 		PrintAny(PMagenta,"$ cd "+sp.ImportPath)
-		PrintAny(PMagenta,"$ docker-compose up --build")
+		PrintAny(PMagenta,"$ make init")
 		return
 	}
 
-	fmt.Println("\n-h or -help")
+	fmt.Printf(guide)
 }
 
 func (s *Sprinter) conversation() {
@@ -147,7 +149,6 @@ func (s *Sprinter) Run() error {
 	if err := s.createAll(sym); err != nil {
 		return err
 	}
-
 
 	return nil
 }
@@ -252,11 +253,20 @@ func (s *Sprinter) createFile(f txtar.File) (rerr error) {
 	return nil
 }
 
-var helpMessage = `
+var guide = `
 please enter your console
-sprinter -n
-then you may play nice time
 
--help or -h help command
--new or -n create command
+sprinter new
+- creating new app
+
+sprinter help
+- helping you use this tool
+`
+
+var help = `
+creating new app
+$ sprinter new
+
+To know more
+https://github.com/gari8/sprinter
 `
