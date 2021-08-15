@@ -1,5 +1,5 @@
-.PHONY: build
-
+init:
+	go mod init @@.ImportPath@@ && go mod tidy && make build && make up_db && make up
 build:
 	docker-compose -f deployments/docker-compose.yml build --no-cache
 up:

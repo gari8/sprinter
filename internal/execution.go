@@ -1,4 +1,4 @@
-package sprinter
+package internal
 
 import (
 	"bytes"
@@ -20,15 +20,15 @@ import (
 )
 
 const (
-	Psql DBType = "PostgresQL"
+	Psql  DBType = "PostgresQL"
 	Mysql DBType = "MySQL"
 )
 
 const (
-	Onion ArcType = "Onion"
-	MVC ArcType = "MVC"
+	Onion   ArcType = "Onion"
+	MVC     ArcType = "MVC"
 	Minimum ArcType = "Minimum"
-	Clean ArcType = "Clean"
+	Clean   ArcType = "Clean"
 )
 
 func Exec () {

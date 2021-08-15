@@ -1,4 +1,4 @@
-package sprinter
+package internal
 
 import "fmt"
 

@@ -1,23 +1,25 @@
-package sprinter
+package internal
 
-import "gopkg.in/AlecAivazis/survey.v1"
+import (
+	"gopkg.in/AlecAivazis/survey.v1"
+)
 
 type (
 	DBType string
 	ArcType string
 	Sprinter struct {
-		ImportPath string
-		DataBase DBType
-		Dir string
+		ImportPath   string
+		DataBase     DBType
+		Dir          string
 		isCreateMode bool
-		isHelpMode bool
-		Mode ArcType
+		isHelpMode   bool
+		Mode         ArcType
 	}
 	Symbol struct {
-		Pkg string
+		Pkg        string
 		ImportPath string
-		DataBase DBType
-		GoVer string
+		DataBase   DBType
+		GoVer      string
 	}
 )
 

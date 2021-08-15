@@ -1,7 +1,9 @@
 package main
 
-import "github.com/gari8/sprinter"
+import (
+	"github.com/gari8/sprinter/internal"
+)
 
 func main() {
-	sprinter.Exec()
+	internal.Exec()
 }
