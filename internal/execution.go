@@ -53,8 +53,6 @@ func Exec () {
 			log.Fatal(err)
 		}
 
-		sp.ImportPath = strings.ToLower(sp.ImportPath)
-
 		PrintAny(PGreen,`
 			
 			...complete
@@ -66,7 +64,7 @@ func Exec () {
 		return
 	}
 
-	fmt.Printf(guide)
+	PrintAny(PBlue,guide)
 }
 
 func (s *Sprinter) conversation() {
@@ -85,7 +83,7 @@ func (s *Sprinter) conversation() {
 		return
 	}
 
-	s.ImportPath = answers.Name
+	s.ImportPath = strings.ToLower(answers.Name)
 
 	switch answers.DBN {
 	case string(Psql):
