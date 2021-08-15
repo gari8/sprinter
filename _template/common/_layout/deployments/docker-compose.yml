@@ -13,10 +13,30 @@ services:
       - 8080:8080
     environment:
       PORT: 8080
+      @@ if eq .DataBase "MySQL" -@@
+      DRIVER: "mysql"
+      DATABASE_URL: "mysql:mysql@tcp(@@.ImportPath@@db:3306)/mysql?charset=utf8&parseTime=true"
+      @@ else @@
       DRIVER: "postgres"
-      DATABASE_URL: "host=db user=postgres dbname=postgres password=postgres sslmode=disable"
+      DATABASE_URL: "host=@@.ImportPath@@db user=postgres dbname=postgres password=postgres sslmode=disable"
+      @@ end @@
     command: sh scripts/build-local.sh
   db:
+    @@ if eq .DataBase "MySQL" -@@
+    image: mysql:alpine
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ../test/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    @@ else @@
     image: postgres:10-alpine
     container_name: db
     ports:
@@ -35,4 +55,5 @@ services:
         max-file: "5"
     volumes:
       - ../test/database/init:/docker-entrypoint-initdb.d
+    @@ end @@
   

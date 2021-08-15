@@ -3,7 +3,11 @@ package conf
 import (
 	"database/sql"
 
+	@@ if eq .DataBase "MySQL" -@@
+	_ "github.com/go-sql-driver/mysql"
+	@@ else @@
 	_ "github.com/lib/pq"
+	@@ end @@
 
 	"os"
 )
