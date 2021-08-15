@@ -10,3 +10,7 @@ run_api:
 	docker-compose -f deployments/docker-compose.yml run api ash
 run_db:
 	docker-compose -f deployments/docker-compose.yml run db ash
+exec_api:
+	docker-compose -f deployments/docker-compose.yml exec api ash
+exec_db:
+	docker-compose -f deployments/docker-compose.yml exec db ash
