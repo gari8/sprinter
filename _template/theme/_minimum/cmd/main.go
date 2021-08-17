@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"@@.ImportPath@@/internal/@@.ImportPath@@/config/database/conf"
 	"@@.ImportPath@@/internal/@@.ImportPath@@/router"
+	"github.com/gari8/sprinter"
 	"net/http"
 	"os"
 )
@@ -31,19 +32,7 @@ func main() {
 		}
 	}()
 
-	fmt.Println(`
-    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-  *        ####    #####    #####     ####    ##  ##   ######   ######   #####  *
-  *      ##  ##   ##  ##   ##  ##     ##     ### ##     ##     ##       ##  ##  *
-  *     ##       ##  ##   ##  ##     ##     ######     ##     ##       ##  ##   *
-  *     ####    #####    #####      ##     ######     ##     ####     #####     *
-  *       ##   ##       ####       ##     ## ###     ##     ##       ####       *
-  *  ##  ##   ##       ## ##      ##     ##  ##     ##     ##       ## ##       *
-  *  ####    ##       ##  ##    ####    ##  ##     ##     ######   ##  ##       *
-    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-    API:	GET http://localhost:8080/api/v1
-    `)
+	sprinter.PrintLogo("API: GET http://localhost:8080/api/v1", "HTML: GET http://localhost:8080")
 
 	s := router.NewRouter(conn)
 	s.Router()

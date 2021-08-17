@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gari8/sprinter"
 	"net/http"
 	"os"
 
@@ -34,20 +35,7 @@ func main() {
 		}
 	}()
 
-	fmt.Println(`
-    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-  *        ####    #####    #####     ####    ##  ##   ######   ######   #####  *
-  *      ##  ##   ##  ##   ##  ##     ##     ### ##     ##     ##       ##  ##  *
-  *     ##       ##  ##   ##  ##     ##     ######     ##     ##       ##  ##   *
-  *     ####    #####    #####      ##     ######     ##     ####     #####     *
-  *       ##   ##       ####       ##     ## ###     ##     ##       ####       *
-  *  ##  ##   ##       ## ##      ##     ##  ##     ##     ##       ## ##       *
-  *  ####    ##       ##  ##    ####    ##  ##     ##     ######   ##  ##       *
-    * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	HTML:	GET http://localhost:8080
-    API:	GET http://localhost:8080/api/v1
-    `)
+	sprinter.PrintLogo("API: GET http://localhost:8080/api/v1", "HTML: GET http://localhost:8080")
 
 	m := model.NewModel(conn)
 	c := controller.NewController(m)
