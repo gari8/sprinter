@@ -1,17 +1,8 @@
-package main
+package sprinter
 
-import (
-	"@@.ImportPath@@/internal/@@.ImportPath@@/infrastructure/database/conf"
-	"@@.ImportPath@@/internal/@@.ImportPath@@/infrastructure/server"
-	"fmt"
-)
+import "fmt"
 
-func main() {
-	conn, err := conf.NewDatabaseConnection()
-	if err != nil {
-		panic(err)
-	}
-	s := server.NewServer(conn)
+func PrintLogo(strings ...interface{}) {
 	fmt.Println(`
     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
   *        ####    #####    #####     ####    ##  ##   ######   ######   #####  *
@@ -23,8 +14,9 @@ func main() {
   *  ####    ##       ##  ##    ####    ##  ##     ##     ######   ##  ##       *
     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-    API:	GET http://localhost:8080/api/v1/sample
-			POST http://localhost:8080/api/v1/sample
-    `)
-	s.Serve()
+    API:
+	`)
+	for _, s := range strings {
+		fmt.Printf("      %s\n", s.(string))
+	}
 }
