@@ -16,7 +16,7 @@ func Handle (fn func(ctx context.Context, r *http.Request) Response) http.Handle
 	}
 }
 
-func GetInputByJson(body io.ReadCloser, target *interface{}) {
+func GetInputByJson(body io.ReadCloser, target interface{}) {
 	decoder := json.NewDecoder(body)
 	err := decoder.Decode(&target)
 	if err != nil {
