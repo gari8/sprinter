@@ -7,4 +7,5 @@ type Response struct {
 	Text string `json:"text,omitempty"`
 	Object interface{} `json:"object,omitempty"`
 	Path string `json:"path,omitempty"`
+	Err error `json:"err,omitempty"`
 }
