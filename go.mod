@@ -3,6 +3,7 @@ module github.com/gari8/sprinter
 go 1.16
 
 require (
+	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	golang.org/x/sys v0.0.0-20201020230747-6e5568b54d1a // indirect

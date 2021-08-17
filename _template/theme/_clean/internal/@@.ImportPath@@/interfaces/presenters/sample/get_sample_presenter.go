@@ -6,9 +6,7 @@ import (
 	"net/http"
 )
 
-type GetSamplePresenter struct {
-
-}
+type GetSamplePresenter struct {}
 
 func NewGetSamplePresenter() GetSamplePresenter {
 	return GetSamplePresenter{}

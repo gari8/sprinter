@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"github.com/gari8/sprinter"
 	"github.com/go-chi/chi"
 	sampleController "@@.ImportPath@@/internal/@@.ImportPath@@/interfaces/controllers/sample"
@@ -12,17 +11,18 @@ import (
 	"net/http"
 )
 
-func sampleRouter(s Server) http.Handler {
+func SampleRouter(s Server) http.Handler {
 	r := chi.NewRouter()
 
 	repo := sampleRepository.NewSampleRepository(s.Conn)
 	service := sampleService.NewSampleService(repo)
-	presenter := samplePresenter.NewGetSamplePresenter()
-	interactor := sampleUseCase.NewGetSampleInteractor(presenter, service)
-	controller := sampleController.NewSampleController(interactor)
+	getPresenter := samplePresenter.NewGetSamplePresenter()
+	createPresenter := samplePresenter.NewCreateSamplePresenter()
+	getInteractor := sampleUseCase.NewGetSampleInteractor(getPresenter, service)
+	createInteractor := sampleUseCase.NewCreateSampleInteractor(createPresenter, service)
+	controller := sampleController.NewSampleController(getInteractor, createInteractor)
+
 	r.Get("/", sprinter.Handle(controller.GetSamples))
-	r.Post("/", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Println("=======hi")
-	})
+	r.Post("/", sprinter.Handle(controller.CreateSample))
 	return r
 }

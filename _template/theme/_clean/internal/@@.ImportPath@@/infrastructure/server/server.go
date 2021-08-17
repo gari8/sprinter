@@ -23,7 +23,7 @@ func (s Server) Serve() {
 	s.Route.Use(middleware.Logger)
 	s.Route.Use(middleware.Recoverer)
 	s.Route.Route("/api/v1", func(r chi.Router) {
-		r.Mount("/sample", sampleRouter(s))
+		r.Mount("/sample", SampleRouter(s))
 	})
 	err := http.ListenAndServe(":8080", s.Route)
 	if err != nil {

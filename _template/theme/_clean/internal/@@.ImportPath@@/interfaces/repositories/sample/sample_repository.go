@@ -28,3 +28,20 @@ func (s SampleRepository) GetSamples() ([]domain.Sample, error) {
 	}
 	return samples, err
 }
+
+func (s SampleRepository) GetSample(id uint32) (domain.Sample, error) {
+	var sample domain.Sample
+	err := s.conn.QueryRow("SELECT id, text FROM samples WHERE id = $1", id).Scan(&sample.ID, &sample.Text)
+	if err != nil {
+		return sample, err
+	}
+	return sample, nil
+}
+
+func (s SampleRepository) CreateSample(sample domain.Sample) error {
+	_, err := s.conn.Exec("INSERT INTO samples(text) VALUES ($1)", sample.Text)
+	if err != nil {
+		return err
+	}
+	return nil
+}

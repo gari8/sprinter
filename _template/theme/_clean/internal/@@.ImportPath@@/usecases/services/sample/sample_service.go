@@ -6,6 +6,7 @@ import (
 
 type Repository interface {
 	GetSamples() ([]domain.Sample, error)
+	CreateSample(sample domain.Sample) error
 }
 
 type SampleService struct {
@@ -18,4 +19,12 @@ func NewSampleService(repository Repository) SampleService {
 
 func (s SampleService) GetSamples() ([]domain.Sample, error) {
 	return s.repository.GetSamples()
+}
+
+func (s SampleService) CreateSample(sample domain.Sample) error {
+	err := s.repository.CreateSample(sample)
+	if err != nil {
+		return err
+	}
+	return nil
 }

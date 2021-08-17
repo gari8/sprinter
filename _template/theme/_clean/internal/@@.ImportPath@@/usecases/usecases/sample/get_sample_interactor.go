@@ -26,7 +26,7 @@ func (i GetSampleInteractor) GetSamples() sprinter.Response {
 	if err != nil {
 		return sprinter.Response{
 			Code: http.StatusInternalServerError,
-			Object: err,
+			Err: err,
 		}
 	}
 	return i.outputPort.CreateResponse(samples)
