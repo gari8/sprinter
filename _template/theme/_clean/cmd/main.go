@@ -3,7 +3,6 @@ package main
 import (
 	"@@.ImportPath@@/internal/@@.ImportPath@@/infrastructure/database/conf"
 	"@@.ImportPath@@/internal/@@.ImportPath@@/infrastructure/server"
-	"fmt"
 	"github.com/gari8/sprinter"
 )
 

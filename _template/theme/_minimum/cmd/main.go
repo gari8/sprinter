@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"@@.ImportPath@@/internal/@@.ImportPath@@/config/database/conf"
 	"@@.ImportPath@@/internal/@@.ImportPath@@/router"
 	"github.com/gari8/sprinter"
