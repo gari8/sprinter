@@ -29,6 +29,7 @@ const (
 	MVC     ArcType = "MVC"
 	Minimum ArcType = "Minimum"
 	Clean   ArcType = "Clean"
+	Hexagonal ArcType = "Hexagonal"
 )
 
 func Exec () {
@@ -103,6 +104,8 @@ func (s *Sprinter) conversation() {
 		s.Mode = Minimum
 	case string(Clean):
 		s.Mode = Clean
+	case string(Hexagonal):
+		s.Mode = Hexagonal
 	default:
 		s.Mode = Minimum
 	}
@@ -194,6 +197,10 @@ func (s *Sprinter) createAll(sym *Symbol) error {
 		}
 	case Clean:
 		if err := tmpl.CleanTmpl.Execute(&buf, sym); err != nil {
+			return err
+		}
+	case Hexagonal:
+		if err := tmpl.HexagonalTmpl.Execute(&buf, sym); err != nil {
 			return err
 		}
 	default:

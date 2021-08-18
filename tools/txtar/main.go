@@ -32,7 +32,7 @@ func main() {
 	}
 
 	// archive 作成
-	var onion, mvc, clean, minimum, layout archive
+	var onion, mvc, clean, minimum, hexagonal, layout archive
 
 	err := layout.walkTemplate(dir + "/common/_layout/", pref + "common/_layout/")
 	if err != nil {
@@ -59,6 +59,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	err = hexagonal.walkTemplate(dir + "/theme/_hexagonal/", pref + "theme/_hexagonal/")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	w, err := os.Create(output)
 	if err != nil {
 		log.Fatal(err)
@@ -68,6 +73,7 @@ func main() {
 	archivedMVC := archiveToString(mvc)
 	archivedMinimum := archiveToString(minimum)
 	archivedClean := archiveToString(clean)
+	archivedHexagonal := archiveToString(hexagonal)
 	archivedLayout := archiveToString(layout)
 
 
@@ -87,6 +93,8 @@ func main() {
 			"(\"tmpl\").Delims(`@@`, `@@`).Parse(layout+%q))\n", archivedMinimum)
 		_, _ = fmt.Fprintf(w, "var CleanTmpl = template.Must(template.New"+
 			"(\"tmpl\").Delims(`@@`, `@@`).Parse(layout+%q))\n", archivedClean)
+		_, _ = fmt.Fprintf(w, "var HexagonalTmpl = template.Must(template.New"+
+			"(\"tmpl\").Delims(`@@`, `@@`).Parse(layout+%q))\n", archivedHexagonal)
 	}
 
 	if err := w.Close(); err != nil {

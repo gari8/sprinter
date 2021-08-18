@@ -44,7 +44,7 @@ var qs = []*survey.Question{
 		Name: "architecture",
 		Prompt: &survey.Select{
 			Message: "[3] Please select the architecture",
-			Options: []string{string(Onion), string(MVC), string(Clean), string(Minimum)},
+			Options: []string{string(Clean), string(Hexagonal), string(Minimum), string(MVC), string(Onion)},
 		},
 	},
 }

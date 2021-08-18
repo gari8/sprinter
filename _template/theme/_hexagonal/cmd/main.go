@@ -1,0 +1,17 @@
+package main
+
+import (
+	"@@.ImportPath@@/internal/@@.ImportPath@@/infrastructure/database/conf"
+	"@@.ImportPath@@/internal/@@.ImportPath@@/infrastructure/server"
+	"github.com/gari8/sprinter"
+)
+
+func main() {
+	conn, err := conf.NewDatabaseConnection()
+	if err != nil {
+		panic(err)
+	}
+	s := server.NewServer(conn)
+	sprinter.PrintLogo("GET http://localhost:8080/api/v1/sample", "POST http://localhost:8080/api/v1/sample")
+	s.Serve()
+}
