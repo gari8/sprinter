@@ -18,7 +18,7 @@ go install github.com/gari8/sprinter/cmd/sprinter@latest
 - MVC Pattern
 - Onion Architecture
 - Clean Architecture
-- 
+- Hexagonal Architecture
 
 ### How to use
 
