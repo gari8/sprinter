@@ -34,32 +34,32 @@ func main() {
 	// archive 作成
 	var onion, mvc, clean, minimum, hexagonal, layout archive
 
-	err := layout.walkTemplate(dir + "/common/_layout/", pref + "common/_layout/")
+	err := layout.walkTemplate(dir+"/common/_layout/", pref+"common/_layout/")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = onion.walkTemplate(dir + "/theme/_onion/", pref + "theme/_onion/")
+	err = onion.walkTemplate(dir+"/theme/_onion/", pref+"theme/_onion/")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = mvc.walkTemplate(dir + "/theme/_mvc/", pref + "theme/_mvc/")
+	err = mvc.walkTemplate(dir+"/theme/_mvc/", pref+"theme/_mvc/")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = clean.walkTemplate(dir + "/theme/_clean/", pref + "theme/_clean/")
+	err = clean.walkTemplate(dir+"/theme/_clean/", pref+"theme/_clean/")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = minimum.walkTemplate(dir + "/theme/_minimum/", pref + "theme/_minimum/")
+	err = minimum.walkTemplate(dir+"/theme/_minimum/", pref+"theme/_minimum/")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = hexagonal.walkTemplate(dir + "/theme/_hexagonal/", pref + "theme/_hexagonal/")
+	err = hexagonal.walkTemplate(dir+"/theme/_hexagonal/", pref+"theme/_hexagonal/")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,13 +69,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	archivedOnion := archiveToString(onion)
-	archivedMVC := archiveToString(mvc)
-	archivedMinimum := archiveToString(minimum)
-	archivedClean := archiveToString(clean)
-	archivedHexagonal := archiveToString(hexagonal)
-	archivedLayout := archiveToString(layout)
-
+	archivedOnion := onion.archiveToString()
+	archivedMVC := mvc.archiveToString()
+	archivedMinimum := minimum.archiveToString()
+	archivedClean := clean.archiveToString()
+	archivedHexagonal := hexagonal.archiveToString()
+	archivedLayout := layout.archiveToString()
 
 	if archivedOnion != "" || archivedMVC != "" {
 		_, _ = fmt.Fprintln(w, "// DO NOT EDIT.")
@@ -102,12 +101,12 @@ func main() {
 	}
 }
 
-func archiveToString(ar archive) string {
+func (ar archive) archiveToString() string {
 	arc := txtar.Archive(ar)
 	return string(txtar.Format(&arc))
 }
 
-func (ar *archive)walkTemplate(dir string, pref string) error {
+func (ar *archive) walkTemplate(dir string, pref string) error {
 	if err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
