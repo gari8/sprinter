@@ -13,11 +13,15 @@ func Handle(fn func(ctx context.Context, r *http.Request) Response) http.Handler
 		w.WriteHeader(response.Code)
 		w.Header().Add("Content-Type", response.ContentType)
 		if response.Code < 400 {
-			body, _ := json.Marshal(response.Object)
-			_, _ = w.Write(body)
+			if response.Object != nil {
+				body, _ := json.Marshal(response.Object)
+				_, _ = w.Write(body)
+			}
 		} else {
-			body, _ := json.Marshal(response.Err)
-			_, _ = w.Write(body)
+			if response.Err != nil {
+				body, _ := json.Marshal(response.Err)
+				_, _ = w.Write(body)
+			}
 		}
 	}
 }
