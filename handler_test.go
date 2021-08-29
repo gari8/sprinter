@@ -37,13 +37,10 @@ func TestHandle(t *testing.T) {
 
 	handlerFunc := Handle(fn)
 	handlerFunc.ServeHTTP(got, req)
-	expected, err := json.Marshal(Response{
-		Code: StatusOK,
-		Object: struct {
-			Param string `json:"param"`
-		}{
-			Param: "sprinter",
-		},
+	expected, err := json.Marshal(struct {
+		Param string `json:"param"`
+	}{
+		Param: "sprinter",
 	})
 	assert.NoError(t, err)
 

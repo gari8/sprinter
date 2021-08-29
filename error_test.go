@@ -19,4 +19,9 @@ func TestOnResponseError(t *testing.T) {
 	assert.Equal(t, err, response.Err)
 	assert.Equal(t, message, response.Text)
 	assert.Equal(t, 404, response.Code)
+
+	response = OnResponseError(BadRequestErr, err, message)
+	assert.Equal(t, err, response.Err)
+	assert.Equal(t, message, response.Text)
+	assert.Equal(t, 400, response.Code)
 }

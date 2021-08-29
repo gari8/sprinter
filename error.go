@@ -8,6 +8,8 @@ import (
 
 const (
 	StatusOK = 200
+	// BadRequestErr request is invalid
+	BadRequestErr = 400
 	// NotFoundError object not found
 	NotFoundError = 404
 	// InternalServerError server stopped

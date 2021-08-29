@@ -10,9 +10,15 @@ import (
 func Handle(fn func(ctx context.Context, r *http.Request) Response) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		response := fn(r.Context(), r)
-		b, _ := json.Marshal(response)
 		w.WriteHeader(response.Code)
-		_, _ = w.Write(b)
+		w.Header().Add("Content-Type", response.ContentType)
+		if response.Code < 400 {
+			body, _ := json.Marshal(response.Object)
+			_, _ = w.Write(body)
+		} else {
+			body, _ := json.Marshal(response.Err)
+			_, _ = w.Write(body)
+		}
 	}
 }
 
