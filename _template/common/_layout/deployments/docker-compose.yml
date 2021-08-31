@@ -4,7 +4,7 @@ services:
     container_name: api
     build:
       context: ../
-      dockerfile: ../build/Dockerfile
+      dockerfile: build/Dockerfile
     tty: true
     restart: always
     volumes:
