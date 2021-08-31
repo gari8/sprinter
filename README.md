@@ -35,3 +35,10 @@ sprinter new
 ```
 open http://localhost:8080/api/v1 or http://localhost:8080
 ```
+
+if you get Docker Error, you should fix DockerEngineConfig ↓
+```
+"features": {
+    "buildkit": true # <- fix false
+}
+```
