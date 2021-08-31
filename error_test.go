@@ -24,4 +24,14 @@ func TestOnResponseError(t *testing.T) {
 	assert.Equal(t, err, response.Err)
 	assert.Equal(t, message, response.Text)
 	assert.Equal(t, 400, response.Code)
+
+	response = OnResponseError(ForbiddenErr, err, message)
+	assert.Equal(t, err, response.Err)
+	assert.Equal(t, message, response.Text)
+	assert.Equal(t, 403, response.Code)
+
+	response = OnResponseError(UnauthorizedErr, err, message)
+	assert.Equal(t, err, response.Err)
+	assert.Equal(t, message, response.Text)
+	assert.Equal(t, 401, response.Code)
 }

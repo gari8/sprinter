@@ -10,6 +10,10 @@ const (
 	StatusOK = 200
 	// BadRequestErr request is invalid
 	BadRequestErr = 400
+	// UnauthorizedErr has not authorized
+	UnauthorizedErr = 401
+	// ForbiddenErr permission is invalid
+	ForbiddenErr = 403
 	// NotFoundError object not found
 	NotFoundError = 404
 	// InternalServerError server stopped
