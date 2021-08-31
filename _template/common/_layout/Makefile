@@ -1,16 +1,18 @@
 init:
 	sh scripts/init-local.sh && make build && make up_db && make up
 build:
-	docker-compose -f deployments/docker-compose.yml build --no-cache
+	docker compose -f deployments/docker-compose.yml build --no-cache
 up:
-	docker-compose -f deployments/docker-compose.yml up api
+	docker compose -f deployments/docker-compose.yml up api
 up_db:
-	docker-compose -f deployments/docker-compose.yml up -d db
+	docker compose -f deployments/docker-compose.yml up -d db
+down:
+	docker compose -f deployments/docker-compose.yml down
 run_api:
-	docker-compose -f deployments/docker-compose.yml run api ash
+	docker compose -f deployments/docker-compose.yml run api ash
 run_db:
-	docker-compose -f deployments/docker-compose.yml run db ash
+	docker compose -f deployments/docker-compose.yml run db ash
 exec_api:
-	docker-compose -f deployments/docker-compose.yml exec api ash
+	docker compose -f deployments/docker-compose.yml exec api ash
 exec_db:
-	docker-compose -f deployments/docker-compose.yml exec db ash
+	docker compose -f deployments/docker-compose.yml exec db ash
