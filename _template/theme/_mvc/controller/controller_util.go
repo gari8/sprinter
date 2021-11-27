@@ -19,7 +19,7 @@ func parseTemplate(dir string, fileName string) (*template.Template, error) {
 
 	var layout string
 
-	if err := filepath.Walk("internal/mymvc/views/layout", func(path string, info os.FileInfo, err error) error {
+	if err := filepath.Walk("views/layout", func(path string, info os.FileInfo, err error) error {
 
 		if err != nil {
 			return err
@@ -40,7 +40,7 @@ func parseTemplate(dir string, fileName string) (*template.Template, error) {
 		fmt.Println(err)
 	}
 
-	if err := filepath.Walk("internal/mymvc/views/"+dir, func(path string, info os.FileInfo, err error) error {
+	if err := filepath.Walk("views/"+dir, func(path string, info os.FileInfo, err error) error {
 
 		if err != nil {
 			return err
