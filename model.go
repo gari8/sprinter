@@ -1,7 +1,7 @@
 package sprinter
 
 type Response struct {
-	Code        int         `json:"code"`
+	Code        int         `json:"code,omitempty"`
 	ContentType string      `json:"content_type,omitempty"`
 	Content     []byte      `json:"content,omitempty"`
 	Text        string      `json:"text,omitempty"`

@@ -14,6 +14,7 @@ func Handle(fn func(ctx context.Context, r *http.Request) Response) http.Handler
 		w.Header().Add("Content-Type", response.ContentType)
 		if response.Code < 400 {
 			if response.Object != nil {
+				response.Code = 0
 				body, _ := json.Marshal(response.Object)
 				_, _ = w.Write(body)
 			}
