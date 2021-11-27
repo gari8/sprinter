@@ -1,0 +1,59 @@
+version: "3.8"
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+    tty: true
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - 8080:8080
+    environment:
+      PORT: 8080
+      @@ if eq .DataBase "MySQL" -@@
+      DRIVER: "mysql"
+      DATABASE_URL: "mysql:mysql@tcp(db:3306)/mysql?charset=utf8&parseTime=true"
+      @@ else @@
+      DRIVER: "postgres"
+      DATABASE_URL: "host=db user=postgres dbname=postgres password=postgres sslmode=disable"
+      @@ end @@
+    command: sh scripts/build-local.sh
+  db:
+    @@ if eq .DataBase "MySQL" -@@
+    image: mysql:alpine
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./test/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    @@ else @@
+    image: postgres:10-alpine
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGPASSWORD: postgres
+      POSTGRES_DB: postgres
+      DATABASE_HOST: localhost
+      TZ: 'Asia/Tokyo'
+    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=on -c log_disconnections=on
+    logging:
+      options:
+        max-size: "10k"
+        max-file: "5"
+    volumes:
+      - ./test/database/init:/docker-entrypoint-initdb.d
+    @@ end @@
+  
