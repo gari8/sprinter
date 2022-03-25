@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-chmod +x scripts/*.sh
+RUN chmod +x scripts/*.sh
 
 RUN go mod tidy
 
